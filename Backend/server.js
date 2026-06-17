@@ -21,6 +21,11 @@ app.use(passport.initialize());
 app.use('/api/auth', authRoutes);
 app.use('/api/recommendations', recommendationRoutes);
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'success', message: 'Jabarulin AI Backend is running' });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'Jabarulin AI Backend is running' });
