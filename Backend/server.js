@@ -49,7 +49,12 @@ mongoose.connect(process.env.MONGO_URI)
     // process.exit(1); // Jangan exit agar server tetap menyala walau db mati
   })
   .finally(() => {
-    app.listen(PORT, () => {
-      console.log(`Server berjalan di port ${PORT}`);
-    });
+    // Jalankan server jika tidak dideploy sebagai serverless function (misal di Vercel)
+    if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+      app.listen(PORT, () => {
+        console.log(`Server berjalan di port ${PORT}`);
+      });
+    }
   });
+
+module.exports = app;
